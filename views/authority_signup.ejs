@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authority Sign Up</title>
+</head>
+<body>
+    <h2>Authority Sign Up</h2>
+    <form action="/authority_signup" method="POST">
+        <label for="authorityId">Id : </label>
+        <input type="text" name="authorityId" required>
+        <label for="username">Username : </label>
+        <input type="text" name="username" required>
+        <input type="email" name="email" required>
+        <label for="email">Email : </label>
+        <label for="password">Password : </label>
+        <input type="password" name="password" required>
+        
+        <button type="submit" onclick="redirectTo('authority_login')">Login</button>
+    </form>
+    <script>
+        function redirectTo(page){
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

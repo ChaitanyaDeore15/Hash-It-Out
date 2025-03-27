@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Sign Up</title>
+</head>
+<body>
+    <h2>User Sign Up</h2>
+    <form action="/user_signup" method="POST">
+        <label for="userId">Id : </label>
+        <input type="text" name="userId" required>
+        <label for="username">Username : </label>
+        <input type="text" name="username" required>
+        <input type="email" name="email" required>
+        <label for="email">Email : </label>
+        <label for="password">Password : </label>
+        <input type="password" name="password" required>
+        <button type="submit" onclick="redirectTo('user_login')">Login</button>
+    </form>
+    <script>
+        function redirectTo(page){
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>
