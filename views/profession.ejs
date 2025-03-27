@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        header{
+            background-color: rgba(44, 90, 205, 0.886);
+            height: 10vh;
+            color: white;
+            text-align: center;
+            margin-top: 0px;
+            font-size: 25px;
+        }
+        #outer{
+            height: 450px;
+            width: 600px;
+            border: 2px solid black;
+            text-align: center;
+            margin:auto;
+            margin-top: 15vh;
+            background-color: rgba(82, 82, 231, 0.652);
+            color: azure;
+            border-radius: 50px;
+        }
+        #outer h1{
+            font-size: 50px;
+            font-weight: 900;
+        }
+        .inner{
+            height: 300px;
+            width:250px ;
+            
+            border-radius: 30px;
+            display: inline-block;
+            margin: auto;
+        
+            
+        }
+        img{
+            margin-top: 5px;
+            border-radius: 30px;
+        }
+        .login{
+            width: 230px;
+            font-size: 35px;
+            border-radius: 20px;
+            box-shadow: 0 9px #999;
+            border: none;
+            
+
+        }
+        img:hover{
+            box-shadow: 2px 2px 10px white;
+            
+        }
+        .login:hover{
+            background-color: azure;
+        }
+        .login:active{
+            transform: translateY(5px);
+            box-shadow: 0 5px #666;
+        }
+    </style>
+</head>
+<body>
+
+    <header><h1>Online Exam Portal</h1></header>
+    <div id="outer">
+        <h1>
+            Login as
+        </h1>
+        <div class="inner" id="student">
+            <img id="student_pic" src="/images/student_profession.png" alt="student">
+            <button type="button" class="login" onclick="redirectTo('student_login')">Student</button>
+            
+        </div>
+        <div class="inner" id="teacher">
+            <img id="teacher_pic" src="/images/teacher_profession.png" alt="teacher">
+            <button type="button" class="login" onclick="redirectTo('teacher_login')">Teacher</button>
+        </div> 
+    </div>
+
+    <script>
+        function redirectTo(page){
+            window.location.href = page;
+        }
+    </script>
+
+</body>
+</html>
