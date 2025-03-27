@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function() {
+        var message = "<%= message %>";  
+        if (message && message !== "null") {
+            alert(message);
+        }
+    };</script>
+</head>
+<body>
+    <h2>User Login</h2>
+    <form action="/user_login" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+    <button type="button" onclick="redirectTo('user_signup')">Sign Up</button>
+    <script>
+        function redirectTo(page){
+            window.location.href = page;
+        }
+    </script>
+    </body></html>
