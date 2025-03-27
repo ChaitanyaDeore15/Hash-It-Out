@@ -169,7 +169,7 @@ app.get("/authority/:id", (req, res) => {
 
 //update
 app.post("/:authorityid/:complaintid/updated",(req,res)=>{
-    const {auhorithid,complaintid} = req.params;
+    const {authorityid,complaintid} = req.params;
     let q = `UPDATE complaint_store SET status = "Completed" where complaintid = ?`;
     connection.query(q,[complaintid],(req,result)=>{
         res.redirect(`/authority/${authorityid}`);

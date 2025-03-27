@@ -27,6 +27,15 @@
             background-color: #f4f4f4;
         }
     </style>
+    <script>
+        // JavaScript to handle button state
+        function markCompleted(button) {
+            // Change the button text
+            button.innerText = "Completed";
+            // Disable the button
+            button.disabled = true;
+        }
+    </script>
 </head>
 <body>
     <h1>Authority: <%= authority.username %></h1>
@@ -52,16 +61,14 @@
                     <td><%= unique_complaint.complaint %></td>
                     <td><%= unique_complaint.city %></td>
                     <td><%= unique_complaint.status %>
-                        <form method="post" action="/<%= authority.authorityid %>/<%= unique_complaint.complaintid %>/upated">
-                            <button>Completed</button>
+                        <form method="post" action="/<%= authority.authorityid %>/<%= unique_complaint.complaintid %>/updated">
+                            <button onclick="markCompleted(this)">Mark as Completed</button>
                         </form>
-                    </td>
-                    <td>
-                        
-                    </td>
+                        </td>
+                    <td></td>
                 </tr>
             <% }); %>
         </tbody>
     </table>
 </body>
-</html>
+</html> 
