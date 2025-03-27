@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    New Complaint :
+    <form method="post" action="/user/<%= user.id %>/new_complaints/added">
+        <label for="state">State:</label>
+        <input type="text" name="state" required>
+        <label for="city">City:</label>
+        <input type="text" name="city" required>
+        <label for="complaint">Complaint:</label>
+        <input type="text" name="complaint" required>
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>

@@ -3,47 +3,58 @@ const app = express();
 const path = require("path");
 const mysql = require("mysql2");
 
-app.use(express.urlencoded({extended:true}));
-app.set("view engine","ejs");
-app.set("views",path.join(__dirname,"/views"));
+app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
 
 const connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    database : 'complaint_portal',
-    password : 'pass123'
+    host: "localhost",
+    user: "root",
+    database: "complaint_portal",
+    password: "pass123"
 });
 
-//user signup page
-app.get("/user_signup",(req,res)=>{
-    res.render("user_signup");
-})
-
-app.post("/user_signup",(req,res)=>{
-    const {userId,username,password} = req.body;
-    let q = `INSERT INTO users(id,username, password) VALUE('${userId}','${username}','${password}') `;
-    try{
-        connection.query(q,(err,result)=>{
-            if(err) throw err;
-            res.redirect("/user_login");
-        });
-    }catch(err){
-        alert(err);
+connection.connect((err) => {
+    if (err) {
+        console.error("❌ MySQL Connection Failed:", err.message);
+        return;
     }
+    console.log("✅ Connected to MySQL Database");
 });
 
-app.get("/",(req,res)=>{
+// User Signup Page
+app.get("/user_signup", (req, res) => {
+    res.render("user_signup");
+});
+
+app.post("/user_signup", (req, res) => {
+    const { userId, username, password, email } = req.body;
+    let q = `INSERT INTO users (id, username, email, password) VALUES (?, ?, ?, ?)`;
+    
+    connection.query(q, [userId, username, email, password], (err, result) => {
+        if (err) {
+            console.error("❌ Error inserting user:", err.message);
+            return res.send("Error signing up.");
+        }
+        res.redirect("/user_login");
+    });
+});
+
+// Home Page
+app.get("/", (req, res) => {
     res.render("profession");
 });
 
-//getting user login
-app.get("/user_login",(req,res)=>{
-    res.render("user_login",{message : null});
-})
-app.post("/user_login",(req,res)=>{
-    const {username,password} = req.body;
-    let q=`SELECT * FROM users WHERE name = ?`;
-    connection.query(q,[username] , (err, result)=>{
+// User Login
+app.get("/user_login", (req, res) => {
+    res.render("user_login", { message: null });
+});
+
+app.post("/user_login", (req, res) => {
+    const { username, password } = req.body;
+    let q = `SELECT * FROM users WHERE name = ?`;
+
+    connection.query(q, [username], (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             const user = result[0];
@@ -54,97 +65,105 @@ app.post("/user_login",(req,res)=>{
                 res.render("user_login",{ message: "Invalid Username or Password" });
             }
         } else {
-            res.render("user_login",{ message: "No such student found" });
+            res.render("user_login",{ message: "No such teacher found" });
         }
-    })
-    res.render("user_home")
+    });
 });
 
-//user_home page
-app.get("/user/:id",(req,res)=>{
-    const {userId} = req.params;
+// User Home Page
+app.get("/user/:id", (req, res) => {
+    const { id } = req.params;
     let get_user = `SELECT * FROM users WHERE id = ?`;
-    let get_history_complaints = `SELECT * FROM complaints_history WHERE userId = ?`;
-    connection.query(get_user,[userId],(err,result_user)=>{
+    connection.query(get_user,[id],(err,result_user)=>{
         if (err) throw err;
-        if (result_user.length>0){
-            connection.query(get_history_complaints, [userId], (err, result_history_complaint) => {
-                if (err) throw err;
+        user = result_user[0];
+        res.render("user_home",{user : user});
+    })
 
-                res.render("user_home", { 
-                    user: result_user[0], 
-                    history_complaints: result_history_complaint
-                });
-            });
-        }else {
-            res.send("User not found");
-        }
-     })
+    
+});
+//new_complaint page rendering
+app.post("/user/:id/new_complaints",(req,res)=>{
+    const {id} = req.params;
+    let get_user = `SELECT * FROM users WHERE id = ?`;
+    connection.query(get_user,[id],(err,result_user)=>{
+        if (err) throw err;
+        user = result_user[0];
+        res.render("new_complaint",{user});
+    })
 });
 
-//authority signup page
-app.get("/authority_signup",(req,res)=>{
-    res.render("authority_signup");
+//adding complaint
+app.post("/user/:id/new_complaints/added",(req,res)=>{
+    const {id} = req.params;
+    const{state,city,complaint}= req.body;
+    let insert_complaint = `INSERT INTO complaint_store(userid,state,city,complaint) VALUE(?,?,?,?,"Not Completed")`;
+    connection.query(insert_complaint,[id,state,city,complaint],(req,result_inserted)=>{
+        console.log("Inserted");
+        res.redirect(`/user/${id}`);
+    })
 })
-
-app.post("/authority_signup",(req,res)=>{
-    const {authorityId,username,email,password} = req.body;
-    let q = `INSERT INTO authorities(authorityId,username, email,password) VALUE('${authorityId}','${username}',${email},'${password}') `;
-    try{
-        connection.query(q,(err,result)=>{
-            if(err) throw err;
-            res.redirect("/authority_login");
-        });
-    }catch(err){
-        alert(err);
-    }
+// Authority Signup Page
+app.get("/authority_signup", (req, res) => {
+    res.render("authority_signup");
 });
 
-//authority login
-app.post("/authority_login",(req,res)=>{
-    const {username,password} = req.body;
-    let q=`SELECT * FROM authorities WHERE name = ?`;
-    connection.query(q,[username] , (err, result)=>{
+app.post("/authority_signup", (req, res) => {
+    const { authorityId, username, email, password } = req.body;
+    let q = `INSERT INTO authorities (authorityId, username, email, password) VALUES (?, ?, ?, ?)`;
+
+    connection.query(q, [authorityId, username, email, password], (err, result) => {
+        if (err) {
+            console.error("❌ Error inserting authority:", err.message);
+            return res.send("Error signing up.");
+        }
+        res.redirect("/authority_login");
+    });
+});
+
+// Authority Login
+app.get("/authority_login", (req, res) => {
+    res.render("authority_login", { message: null });
+});
+
+app.post("/authority_login", (req, res) => {
+    const { username, password } = req.body;
+    let q = `SELECT * FROM authorities WHERE username = ?`;
+
+    connection.query(q, [username], (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             const authority = result[0];
             if(password == authority.password){
-                res.redirect(`/authority/${authority.id}`);
+                res.redirect(`/authority/${authority.authorityid}`);
             }
             else{
                 res.render("authority_login",{ message: "Invalid Username or Password" });
             }
         } else {
-            res.render("authority_login",{ message: "No such student found" });
+            res.render("authority_login",{ message: "No such teacher found" });
         }
-    })
+    });
 });
 
-//authority_home page
-app.get("/authority/:id",(req,res)=>{
-    const {authorityId} = req.params;
-    let get_authority = `SELECT * FROM authorities WHERE id = ?`;
-    let get_complaints = `SELECT * FROM complaint_store `;
-    connection.query(get_authority,[authorityId],(err,result_authority)=>{
+// Authority Home Page
+app.get("/authority/:id", (req, res) => {
+    const { id } = req.params;
+    let get_authority = `SELECT * FROM authorities WHERE authorityid = ?`;
+    let get_complaints = `SELECT * FROM complaint_store`;
+
+    connection.query(get_authority, [id], (err, result_authority) => {
         if (err) throw err;
-        if (result_user.length>0){
-            connection.query(get_complaints, (err, result_complaints) => {
-                if (err) throw err;
-
-                res.render("authority_home", { 
-                    user: result_authority[0], 
-                    complaints : result_complaints
-                });
-            });
-        }else {
-            res.send("Authority not found");
+        authority = result_authority[0];
+        if (result_authority.length>0){
+            connection.query(get_complaints,(err,result_complaints)=>{
+                res.render("authority_home",{authority : authority,complaints : result_complaints});
+            })
         }
-     })
+    });
 });
 
-
-
-app.listen('3000',()=>{
-    console.log("Server is running.");
-    connection.query("SHOW TABLES");
-})
+// Start Server
+app.listen(3000, () => {
+    console.log("🚀 Server is running on port 3000.");
+});
