@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
     User home page
@@ -14,5 +37,27 @@
     <form method="post" action="/user/<%= user.id %>/new_complaints">
         <button type="submit">New Complaints</button>
     </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Complaint ID</th>
+                <th>Complaint</th>
+                <th>City</th>
+                <th>Status</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% complaints.forEach(unique_complaint => { %>
+                <tr>
+                    <td><%= unique_complaint.complaintid %></td>
+                    <td><%= unique_complaint.complaint %></td>
+                    <td><%= unique_complaint.city %></td>
+                    <td><%= unique_complaint.status %></td>
+                    <td></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
 </body>
 </html>

@@ -10,20 +10,308 @@
             alert(message);
         }
     };</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+    body {
+        font-family: 'Open Sans', sans-serif;
+        color: #222;
+        padding-bottom: 50px;
+    }
+
+    .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    }
+
+    .nav {
+    position: fixed;
+    background-color: #222;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: 10;
+    }
+
+    .nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    transition: all 0.3s ease-in-out;
+    }
+
+    .nav ul {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 7px 15px;
+    transition: all 0.3s ease-in-out;
+    }
+
+    .nav.active {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav.active a {
+    color: #000;
+    }
+
+    .nav.active .container {
+    padding: 10px 0;
+    }
+
+    .nav a.current,
+    .nav a:hover {
+    color: #c0392b;
+    font-weight: bold;
+    }
+
+    .hero {
+    background-image: url('https://images.pexels.com/photos/450035/pexels-photo-450035.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center;
+    height: 100vh;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 5;
+    }
+
+    .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    }
+
+    .hero h1 {
+    font-size: 46px;
+    margin: -20px 0 20px;
+    }
+
+    .hero p {
+    font-size: 20px;
+    letter-spacing: 1px;
+    }
+
+    .content h2,
+    .content h3 {
+    font-size: 150%;
+    margin: 20px 0;
+    }
+
+    .content p {
+    color: #555;
+    line-height: 30px;
+    letter-spacing: 1.2px;
+    }
+
+    #outer{
+        height: 450px;
+        width: 600px;
+        border: 2px solid black;
+        text-align: center;
+        margin:auto;
+        margin-top: 15vh;
+        background-color: rgba(82, 82, 231, 0.652);
+        color: azure;
+        border-radius: 50px;
+    }
+    #outer h1{
+        font-size: 50px;
+        font-weight: 900;
+    }
+    .inner{
+        height: 300px;
+        width:250px ;
+        
+        border-radius: 30px;
+        display: inline-block;
+        margin: auto;
+    
+        
+    }
+    img{
+        margin-top: 5px;
+        border-radius: 30px;
+    }
+    .login{
+        width: 230px;
+        font-size: 35px;
+        border-radius: 20px;
+        box-shadow: 0 9px #999;
+        border: none;
+        
+
+    }
+    img:hover{
+        box-shadow: 2px 2px 10px white;
+        
+    }
+    .login:hover{
+        background-color: azure;
+    }
+    .login:active{
+        transform: translateY(5px);
+        box-shadow: 0 5px #666;
+    }
+</style>
 </head>
 <body>
-    <h2>User Login</h2>
-    <form action="/user_login" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" name="password" required>
-        <button type="submit">Login</button>
-    </form>
-    <button type="button" onclick="redirectTo('user_signup')">Sign Up</button>
-    <script>
-        function redirectTo(page){
-            window.location.href = page;
-        }
-    </script>
+    <nav class="nav">
+        <div class="container">
+          <h1 class="logo"><a href="/index.html">My Website</a></h1>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#login" class="current">Login</a></li>
+            <li><a href="#about-us">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="hero">
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                
+                <div class="flip-card-front">
+                    <h1>Welcome Back</h1>
+                    <form action="/user_login" method="POST">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" required>
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" required>
+                        <button type="submit">Login</button>
+                        
+                    </form>
+                    <!-- <a class="toggle-link" href="#" onclick="redirectToSignup()">Don't have an account? Sign Up</a> -->
+                    <a class="toggle-link" onclick="redirectToSignup()">Don't have an account? Sign Up</a>
+    
+                    <script>
+                        function redirectToSignup() {
+                            window.location.href = "user_signup";
+                        }
+                    </script>    
+                </div>
+            </div>
+            <style>
+                .flip-card {
+                    width: 400px;
+                    height: 400px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    /* height: 70vh;  */
+                    text-align: center;
+                    padding-top: 100px;
+                    margin: auto;
+    
+                }
+    
+                .flip-card-inner {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    transition: transform 0.8s;
+                    transform-style: preserve-3d;
+                }
+    
+    
+                .flip-card-front{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    backface-visibility: hidden;
+                    background: rgba(33, 33, 33, 0.7);
+                    border-radius: 10px;
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                    color: white;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+    
+    
+                h1 {
+                    margin-top: 0px;
+                    margin-bottom: 25px;
+                }
+    
+                input {
+                    width: 80%;
+                    padding: 10px;
+                    margin: 20px 0;
+                    border: none;
+                    border-radius: 5px;
+                }
+    
+                .btn {
+                    background: linear-gradient(45deg, #ff5733, #ffbd69);
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                    margin-top: 20px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    letter-spacing: 1px;
+                }
+    
+                .btn:hover {
+                    background: linear-gradient(45deg, #ffbd69, #ff5733);
+                    transform: scale(1.05);
+                }
+    
+                .toggle-link {
+                    color: #ffbd69;
+                    text-decoration: none;
+                    margin-top: 10px;
+                    cursor: pointer;
+                    transition: color 0.3s;
+                }
+    
+                .toggle-link:hover {
+                    color: #ff5733;
+                }
+    
+            </style>
+    
+        </div>
+        </div>
+        <script>
+            function redirectTo(page){
+                window.location.href = page;
+            }
+        </script>
+        </div>
+        
+    
     </body></html>

@@ -74,14 +74,16 @@ app.post("/user_login", (req, res) => {
 app.get("/user/:id", (req, res) => {
     const { id } = req.params;
     let get_user = `SELECT * FROM users WHERE id = ?`;
+    let get_history = `SELECT * FROM complaint_store WHERE userid = ?`;
     connection.query(get_user,[id],(err,result_user)=>{
         if (err) throw err;
         user = result_user[0];
-        res.render("user_home",{user : user});
-    })
-
-    
+        connection.query(get_history,[id],(req,result_history)=>{
+            res.render("user_home",{user : user, complaints : result_history});
+        })
+    })    
 });
+
 //new_complaint page rendering
 app.post("/user/:id/new_complaints",(req,res)=>{
     const {id} = req.params;
@@ -93,11 +95,13 @@ app.post("/user/:id/new_complaints",(req,res)=>{
     })
 });
 
+
+
 //adding complaint
 app.post("/user/:id/new_complaints/added",(req,res)=>{
     const {id} = req.params;
     const{state,city,complaint}= req.body;
-    let insert_complaint = `INSERT INTO complaint_store(userid,state,city,complaint) VALUE(?,?,?,?,"Not Completed")`;
+    let insert_complaint = `INSERT INTO complaint_store(userid,state,city,complaint,status) VALUE(?,?,?,?,"Not Completed")`;
     connection.query(insert_complaint,[id,state,city,complaint],(req,result_inserted)=>{
         console.log("Inserted");
         res.redirect(`/user/${id}`);
@@ -162,6 +166,15 @@ app.get("/authority/:id", (req, res) => {
         }
     });
 });
+
+//update
+app.post("/:authorityid/:complaintid/updated",(req,res)=>{
+    const {auhorithid,complaintid} = req.params;
+    let q = `UPDATE complaint_store SET status = "Completed" where complaintid = ?`;
+    connection.query(q,[complaintid],(req,result)=>{
+        res.redirect(`/authority/${authorityid}`);
+    })
+})
 
 // Start Server
 app.listen(3000, () => {

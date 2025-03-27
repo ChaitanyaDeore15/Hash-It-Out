@@ -41,6 +41,7 @@
                 <th>Complaint</th>
                 <th>City</th>
                 <th>Status</th>
+                <th>Update</th>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +51,14 @@
                     <td><%= unique_complaint.userid %></td>
                     <td><%= unique_complaint.complaint %></td>
                     <td><%= unique_complaint.city %></td>
-                    <td><%= unique_complaint.status %></td>
+                    <td><%= unique_complaint.status %>
+                        <form method="post" action="/<%= authority.authorityid %>/<%= unique_complaint.complaintid %>/upated">
+                            <button>Completed</button>
+                        </form>
+                    </td>
+                    <td>
+                        
+                    </td>
                 </tr>
             <% }); %>
         </tbody>
