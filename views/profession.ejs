@@ -3,90 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Grievance Portal - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        header{
-            background-color: rgba(44, 90, 205, 0.886);
-            height: 10vh;
-            color: white;
-            text-align: center;
-            margin-top: 0px;
-            font-size: 25px;
+        :root {
+            --primary-color: #2c5acd;
+            --primary-light: rgba(44, 90, 205, 0.9);
+            --secondary-color: #1e3b8a;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --text-light: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
         }
-        #outer{
-            height: 450px;
-            width: 600px;
-            border: 2px solid black;
-            text-align: center;
-            margin:auto;
-            margin-top: 15vh;
-            background-color: rgba(82, 82, 231, 0.652);
-            color: azure;
-            border-radius: 50px;
-        }
-        #outer h1{
-            font-size: 50px;
-            font-weight: 900;
-        }
-        .inner{
-            height: 300px;
-            width:250px ;
-            
-            border-radius: 30px;
-            display: inline-block;
-            margin: auto;
-        
-            
-        }
-        img{
-            margin-top: 5px;
-            border-radius: 30px;
-        }
-        .login{
-            width: 230px;
-            font-size: 35px;
-            border-radius: 20px;
-            box-shadow: 0 9px #999;
-            border: none;
-            
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        img:hover{
-            box-shadow: 2px 2px 10px white;
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .login-portal {
+            background: rgba(255, 255, 255, 0.95);
+            width: 100%;
+            max-width: 800px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            text-align: center;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .login-portal:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .login-portal h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .login-card {
+            background: white;
+            width: 280px;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .login-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .login-card:active {
+            transform: translateY(-5px);
+        }
+
+        .login-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            border-radius: 50%;
+            padding: 0.5rem;
+            background: linear-gradient(135deg, var(--light-color), white);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .login-card:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            margin-top: 1rem;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background: var(--dark-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .login-portal {
+                padding: 1.5rem;
+            }
             
+            .login-portal h1 {
+                font-size: 2rem;
+            }
+            
+            .login-options {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .login-card {
+                width: 100%;
+                max-width: 300px;
+            }
         }
-        .login:hover{
-            background-color: azure;
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .login:active{
-            transform: translateY(5px);
-            box-shadow: 0 5px #666;
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Welcome to Grievance Portal</h1>
+    </header>
 
-    <header><h1>Online Exam Portal</h1></header>
-    <div id="outer">
-        <h1>
-            Login as
-        </h1>
-        <div class="inner" id="user">
-            <img id="student_pic" src="/images/student_profession.png" alt="student">
-            <button type="button" class="login" onclick="redirectTo('user_login')">User</button>
-            
+    <div class="main-container">
+        <div class="login-portal fade-in">
+            <h1>Login As</h1>
+            <div class="login-options">
+                <div class="login-card fade-in delay-1" onclick="redirectTo('user_login')">
+                    <img src="/images/student_profession.png" alt="Citizen User">
+                    <h3>Citizen User</h3>
+                    <p>Report and track your grievances</p>
+                    <button type="button" class="login-btn">Login as Citizen</button>
+                </div>
+                <div class="login-card fade-in delay-2" onclick="redirectTo('authority_login')">
+                    <img src="/images/teacher_profession.png" alt="Authority">
+                    <h3>Municipal Authority</h3>
+                    <p>Manage and resolve citizen grievances</p>
+                    <button type="button" class="login-btn">Login as Authority</button>
+                </div>
+            </div>
         </div>
-        <div class="inner" id="authority">
-            <img id="teacher_pic" src="/images/teacher_profession.png" alt="teacher">
-            <button type="button" class="login" onclick="redirectTo('authority_login')">Authority</button>
-        </div> 
     </div>
 
+    <footer>
+        <p>&copy; 2023 Municipal Grievance Portal. All rights reserved.</p>
+    </footer>
+
     <script>
-        function redirectTo(page){
+        function redirectTo(page) {
             window.location.href = page;
         }
-    </script>
 
+        // Make entire card clickable
+        document.querySelectorAll('.login-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't trigger if clicking on the button itself
+                if (e.target.tagName !== 'BUTTON') {
+                    const link = this.getAttribute('onclick').match(/'(.*?)'/)[1];
+                    window.location.href = link;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

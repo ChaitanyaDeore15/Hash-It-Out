@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback - Smart Complaint Management System</title>
+  <style>
+    /* General Styles */
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        color: #333;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+    
+    /* Navigation Bar */
+    header {
+        background-color: #1d1d1d;
+        padding: 20px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    nav ul {
+        display: flex;
+        justify-content: center;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    nav ul li {
+        margin: 0 25px;
+        transition: all 0.3s ease;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 8px 0;
+        transition: all 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+        border-bottom: 2px solid #f39c12;
+        color: #f39c12;
+    }
+
+    /* Feedback Section */
+    #feedback {
+        padding: 80px 20px;
+        text-align: center;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        color: #fff;
+        animation: fadeIn 2s ease-in-out;
+    }
+    
+    #feedback h2 {
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out forwards 0.5s;
+    }
+    
+    #feedback p {
+        font-size: 18px;
+        margin-bottom: 40px;
+        color: rgba(255, 255, 255, 0.8);
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out forwards 1s;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Feedback Form */
+    .feedback-form {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        animation: slideUp 1s ease-in-out forwards;
+    }
+    
+    .feedback-form h3 {
+        font-size: 26px;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    label {
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #555;
+    }
+    
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin-top: 8px;
+        background-color: #f9f9f9;
+        transition: all 0.3s ease;
+    }
+    
+    textarea {
+        resize: vertical;
+    }
+    
+    input[type="text"]:focus, textarea:focus {
+        border-color: #0072ff;
+        box-shadow: 0 0 8px rgba(0, 114, 255, 0.6);
+        outline: none;
+    }
+
+    .rating {
+        display: flex;
+        justify-content: space-between;
+        width: 220px;
+        margin-top: 10px;
+    }
+    
+    .rating input[type="radio"] {
+        display: none;
+    }
+    
+    .rating label {
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .rating label:hover {
+        transform: scale(1.2);
+        color: #f39c12;
+    }
+
+    .rating input[type="radio"]:checked + label {
+        color: #f39c12;
+    }
+
+    .submit-btn {
+        background-color: #0072ff;
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 20px;
+        transform: scale(1);
+    }
+    
+    .submit-btn:hover {
+        background-color: #0056b3;
+        transform: scale(1.1);
+    }
+
+    .success-message {
+        background-color: #28a745;
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+        display: none;
+        animation: slideUp 1s ease-in-out forwards;
+    }
+    
+    footer {
+        background-color: #1d1d1d;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 50px;
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+ 
+
+  <!-- Feedback Section -->
+  <section id="feedback">
+    <div class="container">
+      <h2>We Value Your Feedback!</h2>
+      <p>Thank you for using our Smart Complaint Management System. Please share your thoughts to help us improve.</p>
+
+      <div class="feedback-form">
+        <h3>How was your experience?</h3>
+        
+        <!-- Feedback Form -->
+        <form id="feedbackForm">
+          <div class="form-group">
+            <label for="complaintId">Complaint ID:</label>
+            <input type="text" id="complaintId" name="complaintId" placeholder="Enter your complaint ID" required>
+          </div>
+
+          <div class="form-group">
+            <label for="rating">Rating:</label>
+            <div class="rating">
+              <input type="radio" id="rating1" name="rating" value="1"><label for="rating1">1</label>
+              <input type="radio" id="rating2" name="rating" value="2"><label for="rating2">2</label>
+              <input type="radio" id="rating3" name="rating" value="3"><label for="rating3">3</label>
+              <input type="radio" id="rating4" name="rating" value="4"><label for="rating4">4</label>
+              <input type="radio" id="rating5" name="rating" value="5"><label for="rating5">5</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="comments">Additional Comments:</label>
+            <textarea id="comments" name="comments" rows="4" placeholder="Share any additional feedback..." required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message">
+          <p>Your feedback has been successfully submitted. Thank you!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Smart Complaint Management System. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // JavaScript for form submission and success message
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+      document.getElementById('successMessage').style.display = 'block';
+      setTimeout(function() {
+        document.getElementById('successMessage').style.display = 'none';
+      }, 3000); // Hide the success message after 3 seconds
+    });
+  </script>
+</body>
+</html>

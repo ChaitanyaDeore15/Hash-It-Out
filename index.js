@@ -39,6 +39,10 @@ app.post("/user_signup", (req, res) => {
         res.redirect("/user_login");
     });
 });
+// user logout
+app.post("/user/logout",(req,res)=>{
+    res.redirect("/user_login");
+});
 
 // Home Page
 app.get("/", (req, res) => {
@@ -174,6 +178,21 @@ app.post("/:authorityid/:complaintid/updated",(req,res)=>{
     connection.query(q,[complaintid],(req,result)=>{
         res.redirect(`/authority/${authorityid}`);
     })
+});
+
+//authority logout
+app.post("/authority/logout",(req,res)=>{
+    res.redirect("/authority_login");
+});
+
+app.post("/user/:id/feedback",(req,res)=>{
+    const {id} = req.params;
+    let q = `SELECT * FROM users WHERE id = ?`;
+    connection.query(q,[id],(res,result)=>{
+        user = result[0];
+        res.render("feedback",{user:user});
+    })
+    
 })
 
 // Start Server
